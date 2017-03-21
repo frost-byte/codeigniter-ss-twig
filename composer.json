@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "twig/twig": "~2.20"
+        "twig/twig": "~2.0"
     },
     "require-dev": {
         "codeigniter/framework": "3.1.*",
