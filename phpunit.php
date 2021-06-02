@@ -17,7 +17,14 @@ $_SERVER['argv'] = [
 $_SERVER['argc'] = 1;
 
 // Install libraries/Twig.php
-copy('libraries/Twig.php', 'vendor/codeigniter/framework/application/libraries/Twig.php');
+$path = dirname(__FILE__) .'/vendor/codeigniter/framework/application/libraries/Twig.php';
+copy('libraries/Twig.php', $path);
+
+$contents = file_get_contents($path);
+$lines = explode("\n", $contents);
+unset($lines[2]);
+$new_contents = implode("\n", $lines);
+file_put_contents($path, $new_contents);
 
 require __DIR__ . '/ci_instance.php';
 

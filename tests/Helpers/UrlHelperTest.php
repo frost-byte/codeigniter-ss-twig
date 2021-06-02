@@ -1,6 +1,10 @@
 <?php
 
-class url_helper_test extends PHPUnit_Framework_TestCase
+namespace TwigCI\Tests\Helpers;
+
+use PHPUnit\Framework\TestCase;
+
+class UrlHelperTest extends TestCase
 {
     public static function setUpBeforeClass()
     {
@@ -14,7 +18,7 @@ class url_helper_test extends PHPUnit_Framework_TestCase
         $acutual = base_url('images/icons/simle.jpg');
         $expected = 'http://localhost/images/icons/simle.jpg';
         $this->assertEquals($expected, $acutual);
-        
+
         $acutual = base_url('"><s>abc</s><a name="test');
         $expected = 'http://localhost/"><s>abc</s><a name="test';
         $this->assertEquals($expected, $acutual);
@@ -25,7 +29,7 @@ class url_helper_test extends PHPUnit_Framework_TestCase
         $actual = site_url('welcome');
         $expected = 'http://localhost/index.php/welcome';
         $this->assertEquals($expected, $actual);
-        
+
         $actual = site_url('"><s>abc</s><a name="test');
         $expected = 'http://localhost/index.php/"><s>abc</s><a name="test';
         $this->assertEquals($expected, $actual);
@@ -36,7 +40,7 @@ class url_helper_test extends PHPUnit_Framework_TestCase
         $actual = anchor('news/local/123', 'My News', array('title' => 'The best news!'));
         $expected = '<a href="http://localhost/index.php/news/local/123" title="The best news!">My News</a>';
         $this->assertEquals($expected, $actual);
-        
+
         $actual = anchor('news/local/123', '<s>abc</s>', array('<s>name</s>' => '<s>val</s>'));
         $expected = '<a href="http://localhost/index.php/news/local/123" <s>name</s>="<s>val</s>"><s>abc</s></a>';
         $this->assertEquals($expected, $actual);

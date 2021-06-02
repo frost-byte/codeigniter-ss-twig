@@ -4,6 +4,8 @@
 
 This package provides simple Twig integration for [CodeIgniter](https://github.com/bcit-ci/CodeIgniter) 3.x.
 
+If you use CodeIgniter4, check [4.x](https://github.com/kenjis/codeigniter-ss-twig/tree/4.x) branch.
+
 ## Folder Structure
 
 ```
@@ -16,6 +18,7 @@ codeigniter/
 ## Requirements
 
 * PHP 5.4.0 or later
+* Twig 1.38.0 or later (Also, simply checked with Twig v2.x)
 
 ## Installation
 
@@ -23,7 +26,7 @@ codeigniter/
 
 ~~~
 $ cd /path/to/codeigniter/
-$ composer require kenjis/codeigniter-ss-twig
+$ composer require kenjis/codeigniter-ss-twig:^1.0
 ~~~
 
 Install `libraries/Twig.php` to your CodeIgniter application folder:
@@ -164,12 +167,8 @@ If your function explicitly outputs HTML code, you will want the raw output to b
 ~~~
 $ cd codeigniter-ss-twig
 $ composer install
-$ phpunit
+$ vendor/bin/phpunit
 ~~~
-
-## Other Twig Implementations for CodeIgniter 3.x
-
-* https://github.com/davidsosavaldes/Attire
 
 ## Related Projects for CodeIgniter 3.x
 

@@ -1,8 +1,13 @@
 <?php
 
-require __DIR__ . '/../../libraries/Twig.php';
+namespace TwigCI\Tests\Libraries;
 
-class TwigHelperTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Twig\Loader\ArrayLoader;
+use TwigCI\Twig;
+use TwigCI\Tests\ReflectionHelper;
+
+class TwigHelperTest extends TestCase
 {
 	public static function setUpBeforeClass()
 	{
@@ -15,7 +20,7 @@ class TwigHelperTest extends PHPUnit_Framework_TestCase
 	{
 		$twig = new Twig();
 
-		$loader = new Twig_Loader_Array([
+		$loader = new ArrayLoader([
 			'base_url' => '{{ base_url(\'"><s>abc</s><a name="test\') }}',
 			'site_url' => '{{ site_url(\'"><s>abc</s><a name="test\') }}',
 			'anchor' => '{{ anchor(uri, title, attributes) }}',
