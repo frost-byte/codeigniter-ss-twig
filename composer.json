@@ -1,5 +1,5 @@
 {
-    "name": "kenjis/codeigniter-ss-twig",
+    "name": "frost-byte/codeigniter-ss-twig",
     "type": "library",
     "description": "A Simple and Secure Twig integration for CodeIgniter",
     "keywords": [
@@ -7,12 +7,16 @@
         "codeigniter3",
         "twig"
     ],
-    "homepage": "https://github.com/kenjis/codeigniter-ss-twig",
+    "homepage": "https://github.com/frost-byte/codeigniter-ss-twig",
     "license": "MIT",
     "authors": [
         {
             "name": "Kenji Suzuki",
             "homepage": "https://github.com/kenjis"
+        },
+        {
+            "name": "Brian Bradshaw",
+            "homepage": "https://github.com/frost-byte"
         }
     ],
     "require": {
