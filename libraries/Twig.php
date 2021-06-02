@@ -1,4 +1,7 @@
 <?php
+
+namespace TwigCI;
+
 /**
  * Part of CodeIgniter Simple and Secure Twig
  *
@@ -7,12 +10,17 @@
  * @copyright  2015 Kenji Suzuki
  * @link       https://github.com/kenjis/codeigniter-ss-twig
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // If you don't use Composer, uncomment below
 /*
 require_once APPPATH . 'third_party/Twig-1.xx.x/lib/Twig/Autoloader.php';
-Twig_Autoloader::register();
+Twig\Autoloader::register();
 */
+use Twig\Environment;
+use Twig\TwigFunction;
+use Twig\Loader\FilesystemLoader;
+use Twig\Extension\DebugExtension;
 
 class Twig
 {
@@ -41,7 +49,7 @@ class Twig
 	private $functions_safe = [
 		'form_open', 'form_close', 'form_error', 'form_hidden', 'set_value',
 //		'form_open_multipart', 'form_upload', 'form_submit', 'form_dropdown',
-//		'set_radio',
+//		'set_radio', 'set_select', 'set_checkbox',
 	];
 
 	/**
@@ -50,12 +58,12 @@ class Twig
 	private $functions_added = FALSE;
 
 	/**
-	 * @var Twig_Environment
+	 * @var Environment
 	 */
 	private $twig;
 
 	/**
-	 * @var Twig_Loader_Filesystem
+	 * @var FilesystemLoader
 	 */
 	private $loader;
 
@@ -92,7 +100,7 @@ class Twig
 		$this->config = [
 			'cache'      => APPPATH . 'cache/twig',
 			'debug'      => ENVIRONMENT !== 'production',
-			'autoescape' => TRUE,
+			'autoescape' => 'html',
 		];
 
 		$this->config = array_merge($this->config, $params);
@@ -114,14 +122,14 @@ class Twig
 
 		if ($this->loader === null)
 		{
-			$this->loader = new \Twig_Loader_Filesystem($this->paths);
+			$this->loader = new FilesystemLoader($this->paths);
 		}
 
-		$twig = new \Twig_Environment($this->loader, $this->config);
+		$twig = new Environment($this->loader, $this->config);
 
 		if ($this->config['debug'])
 		{
-			$twig->addExtension(new \Twig_Extension_Debug());
+			$twig->addExtension(new DebugExtension());
 		}
 
 		$this->twig = $twig;
@@ -192,10 +200,11 @@ class Twig
 
 		// Load the Template
 		$view = $view . '.twig';
-		$template = $this->twig->loadTemplate($view);
+		$class = $this->twig->getTemplateClass($view);
+		$template = $this->twig->loadTemplate($class, $view);
 
 		// Render the Template's macro
-		$macroMethod = "get".$macro;
+		$macroMethod = "macro_".$macro;
 
 		// Return the rendered macro
 		$result = call_user_func(array($template, $macroMethod), $params);
@@ -216,7 +225,7 @@ class Twig
 			if (function_exists($function))
 			{
 				$this->twig->addFunction(
-					new \Twig_SimpleFunction(
+					new TwigFunction(
 						$function,
 						$function
 					)
@@ -230,7 +239,7 @@ class Twig
 			if (function_exists($function))
 			{
 				$this->twig->addFunction(
-					new \Twig_SimpleFunction(
+					new TwigFunction(
 						$function,
 						$function,
 						['is_safe' => ['html']]
@@ -243,7 +252,7 @@ class Twig
 		if (function_exists('anchor'))
 		{
 			$this->twig->addFunction(
-				new \Twig_SimpleFunction(
+				new TwigFunction(
 					'anchor',
 					[$this, 'safe_anchor'],
 					['is_safe' => ['html']]
@@ -275,7 +284,7 @@ class Twig
 	}
 
 	/**
-	 * @return \Twig_Environment
+	 * @return Environment
 	 */
 	public function getTwig()
 	{

@@ -1,4 +1,7 @@
 <?php
+
+namespace TwigCI\Tests;
+
 /**
  * Part of CI PHPUnit Test
  *
@@ -7,7 +10,6 @@
  * @copyright  2015 Kenji Suzuki
  * @link       https://github.com/kenjis/ci-phpunit-test
  */
-
 class ReflectionHelper
 {
 	/**
@@ -17,7 +19,7 @@ class ReflectionHelper
 	 */
 	public static function getPrivateMethodInvoker($obj, $method)
 	{
-		$ref_method = new ReflectionMethod($obj, $method);
+		$ref_method = new \ReflectionMethod($obj, $method);
 		$ref_method->setAccessible(true);
 		$obj = (gettype($obj) === 'object') ? $obj : null;
 
@@ -30,9 +32,9 @@ class ReflectionHelper
 	protected static function getAccessibleRefProperty($obj, $property)
 	{
 		if (is_object($obj)) {
-			$ref_class = new ReflectionObject($obj);
+			$ref_class = new \ReflectionObject($obj);
 		} else {
-			$ref_class = new ReflectionClass($obj);
+			$ref_class = new \ReflectionClass($obj);
 		}
 
 		$ref_property = $ref_class->getProperty($property);

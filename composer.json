@@ -1,24 +1,44 @@
 {
     "name": "kenjis/codeigniter-ss-twig",
-    "description": "A Simple and Secure Twig integration for CodeIgniter 3.x",
+    "type": "library",
+    "description": "A Simple and Secure Twig integration for CodeIgniter",
     "keywords": [
         "codeigniter",
+        "codeigniter3",
         "twig"
     ],
+    "homepage": "https://github.com/kenjis/codeigniter-ss-twig",
     "license": "MIT",
     "authors": [
         {
             "name": "Kenji Suzuki",
-            "homepage": "https://github.com/kenjis/codeigniter-ss-twig"
+            "homepage": "https://github.com/kenjis"
         }
     ],
     "require": {
-        "php": ">=7.1.0",
-        "twig/twig": "~2.0"
+        "php": ">=7.2.5",
+        "twig/twig": "^3.0"
     },
     "require-dev": {
         "codeigniter/framework": "3.1.*",
         "phpunit/phpunit": "^6.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "TwigCI\\": "libraries/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TwigCI\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "branch-alias": {
